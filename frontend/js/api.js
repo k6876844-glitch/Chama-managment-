@@ -16,10 +16,13 @@ const api = {
     if (this.token) headers.Authorization = `Bearer ${this.token}`;
 
     let res;
+    this.busy(1);
     try {
       res = await fetch(API_BASE + path, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) });
     } catch {
       throw new Error('Cannot reach the server. Is the backend running?');
+    } finally {
+      this.busy(-1);
     }
 
     const data = res.status === 204 ? null : await res.json().catch(() => null);
@@ -33,6 +36,13 @@ const api = {
       throw err;
     }
     return data;
+  },
+
+  // Counts requests in flight and fires `chama:busy` so the page can show a loading bar.
+  pending: 0,
+  busy(delta) {
+    this.pending += delta;
+    window.dispatchEvent(new CustomEvent('chama:busy', { detail: this.pending }));
   },
 
   get(path) { return this.request('GET', path); },

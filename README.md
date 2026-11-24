@@ -13,9 +13,14 @@ chama/
 │   ├── index.html       Landing page
 │   ├── app.html         The system (login + all modules)
 │   ├── js/config.js     ← set API_BASE to the backend you are running
-│   ├── js/api.js        fetch wrapper (token, errors)
-│   ├── js/app.js        Views for each module, role-aware
-│   ├── css/style.css
+│   ├── js/api.js        fetch wrapper (token, errors, loading events)
+│   ├── js/ui.js         Shared UI: icons, forms + validation, dialogs, tables, toasts, CSV export
+│   ├── js/charts.js     Dependency-free SVG charts (work offline)
+│   ├── js/core.js       Roles, view registry, request cache, routing helpers
+│   ├── js/app.js        Shell: login/sign-up, sidebar/drawer, search, notifications
+│   ├── js/views/        One file per module (dashboard, members, loans, reports…)
+│   ├── css/app.css      App design system (light + dark, responsive, print/PDF)
+│   ├── css/style.css    Landing page
 │   └── sw.js, manifest.webmanifest, icon.svg
 ├── database/
 │   └── schema.sql       MySQL schema: one source for the ERD and the Node backend

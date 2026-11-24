@@ -1,5 +1,10 @@
-const CACHE = 'umoja-chama-v3';
-const ASSETS = ['./', 'index.html', 'app.html', 'css/style.css', 'js/config.js', 'js/api.js', 'js/app.js', 'icon.svg', 'manifest.webmanifest'];
+const CACHE = 'umoja-chama-v4';
+const ASSETS = [
+  './', 'index.html', 'app.html', 'css/style.css', 'css/app.css', 'icon.svg', 'manifest.webmanifest',
+  'js/config.js', 'js/api.js', 'js/ui.js', 'js/charts.js', 'js/core.js', 'js/app.js',
+  ...['dashboard', 'members', 'contributions', 'loans', 'repayments', 'expenses', 'fines', 'meetings', 'reports', 'notifications', 'settings']
+    .map(v => `js/views/${v}.js`),
+];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
